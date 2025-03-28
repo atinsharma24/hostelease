@@ -32,7 +32,7 @@ We understand the challenges students face in managing daily hostel tasks, from 
 ## 📌 Installation
 1. Clone the repository:
 ```bash
-   git clone https://github.com/yourusername/HostelEase.git
+   git clone https://github.com/atinsharma24/HostelEase.git
 ```
 2. Navigate to the project directory:
 ```bash
