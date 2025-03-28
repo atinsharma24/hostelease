@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HostelEase - Your Vibrant Hostel Hub</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="temp.css">
+</head>
+
+<body>
+    <!-- Authentication Section -->
+    <div id="authContainer" class="container">
+        <!-- Signup Section -->
+        <div id="signupSection" class="card">
+            <h1>Join HostelEase</h1>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" required>
+                </div>
+                <button type="submit">Create Account</button>
+            </form>
+            <div id="signupMessage" class="message hidden"></div>
+            <div class="link" onclick="showLogin()">Already have an account?</div>
+        </div>
+
+        <!-- Login Section -->
+        <div id="loginSection" class="card hidden">
+            <h1>Welcome Back!</h1>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit">Log In</button>
+            </form>
+            <div id="loginMessage" class="message hidden"></div>
+            <div class="link" onclick="showSignup()">Forgot Password?</div>
+            <div class="link" onclick="showSignup()">New to HostelEase? Sign up</div>
+        </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div id="dashboardContainer" class="hidden">
+        <nav class="navbar">
+            <div class="navbar-content">
+                <div class="navbar-brand">
+                    <a href="#welcome"><i class="fas fa-arrow-left"></i></a>
+                    <h1>HostelEase</h1>
+                </div>
+                <div class="nav-links">
+                    <a href="#about-us">About Us</a>
+                    <a href="#" id="logoutBtn">Log Out</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="swiper-container">
+            <!-- Welcome Section -->
+            <section id="welcome" class="section">
+                <div class="card">
+                    <h1>Welcome to HostelEase</h1>
+                    <p style="text-align: center; color: var(--primary-color); font-weight: 300;">
+                        Your vibrant hub for hostel living made simple
+                    </p>
+                        <div class="service-item" data-section="room-allocation"><i class="fas fa-home"></i>
+                            <p>Room Allocation</p>
+                        </div>
+                        <div class="service-item" data-section="cleaning"><i class="fas fa-broom"></i>
+                            <p>Cleaning Requests</p>
+                        </div>
+                        <div class="service-item" data-section="laundry"><i class="fas fa-tshirt"></i>
+                            <p>Laundry Tracking</p>
+                        </div>
+                        <div class="service-item" data-section="electrical"><i class="fas fa-bolt"></i>
+                            <p>Electrical Services</p>
+                        </div>
+                        <div class="service-item" data-section="carpenter"><i class="fas fa-hammer"></i>
+                            <p>Carpenter Services</p>
+                        </div>
+                        <div class="service-item" data-section="wifi"><i class="fas fa-wifi"></i>
+                            <p>WiFi Complaints</p>
+                        </div>
+                        <div class="service-item" data-section="mess"><i class="fas fa-utensils"></i>
+                            <p>Mess Complaints</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Us Section -->
+            <section id="about-us" class="section">
+                <div class="card about-us">
+                    <h2>About Us</h2>
+                    <p>
+                        Welcome to HostelEase, your one-stop solution for a seamless and comfortable hostel living
+                        experience. We understand the challenges students face in managing daily hostel tasks, from room
+                        allocation to maintenance requests. Our mission is to simplify hostel life by providing an
+                        intuitive platform that connects residents with essential services like laundry, cleaning, and
+                        WiFi support. With a focus on efficiency, transparency, and student satisfaction, HostelEase is
+                        designed to make your stay enjoyable and stress-free. Whether you're in a men's or women's
+                        hostel, AC or non-AC room, we're here to ensure your needs are met with just a few clicks. Join
+                        us in redefining hostel living for the modern student!
+                    </p>
+                    <button class="back-btn"
+                        onclick="document.getElementById('welcome').scrollIntoView({ behavior: 'smooth' })">Back</button>
+                </div>
+            </section>
+
+            <!-- Room Allocation Section -->
+            <section id="room-allocation" class="section">
+                <div class="card">
+                    <h2>Room Allocation</h2>
+                    <form id="roomForm">
+                        <div class="form-group">
+                            <label>Student Name</label>
+                            <input type="text" id="studentName" required pattern="[A-Za-z\s]+">
+                        </div>
+                        <div class="form-group">
+                            <label>Contact Number</label>
+                            <input type="tel" id="studentPhone" required pattern="[0-9]{10}">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="roomEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Block</label>
+                            <select id="block" required>
+                                <option value="">Select Block</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                                <option value="E">E</option>
+                                <option value="F">F</option>
+                                <option value="G">G</option>
+                                <option value="H">H</option>
+                                <option value="J">J</option>
+                                <option value="K">K</option>
+                                <option value="L">L</option>
+                                <option value="M">M</option>
+                                <option value="N">N</option>
+                                <option value="P">P</option>
+                                <option value="Q">Q</option>
+                                <option value="R">R</option>
+                                <option value="S">S</option>
+                                <option value="T">T</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>AC/Non-AC</label>
+                            <select id="acType" required>
+                                <option value="">Select AC Type</option>
+                                <option value="AC">AC</option>
+                                <option value="Non-AC">Non-AC</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Hostel Type</label>
+                            <select id="hostelType" required>
+                                <option value="">Select Hostel Type</option>
+                                <option value="Men's">Men's Hostel</option>
+                                <option value="Women's">Women's Hostel</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Room Type</label>
+                            <select id="roomType" required>
+                                <option value="">Select Room Type</option>
+                                <option value="1-bedded">1-Bedded</option>
+                                <option value="2-bedded">2-Bedded</option>
+                                <option value="3-bedded">3-Bedded</option>
+                                <option value="4-bedded">4-Bedded</option>
+                                <option value="6-bedded">6-Bedded</option>
+                                <option value="8-bedded">8-Bedded</option>
+                            </select>
+                        </div>
+                        <div id="roomSummary" class="hidden"></div>
+                        <button type="submit">Submit Allocation</button>
+                        <button class="back-btn"
+                            onclick="document.getElementById('welcome').scrollIntoView({ behavior: 'smooth' })">Back</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Room Cleaning Request Section -->
+            <section id="cleaning" class="section">
+                <div class="card">
+                    <h2>Room Cleaning Request</h2>
+                    <form id="cleaningForm">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" id="cleanName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Room Number</label>
+                            <input type="text" id="cleanRoom" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Block</label>
+                            <select id="cleanBlock" required>
+                                <option value="">Select Block</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                                <option value="E">E</option>
+                                <option value="F">F</option>
+                                <option value="G">G</option>
+                                <option value="H">H</option>
+                                <option value="J">J</option>
+                                <option value="K">K</option>
+                                <option value="L">L</option>
+                                <option value="M">M</option>
+                                <option value="N">N</option>
+                                <option value="P">P</option>
+                                <option value="Q">Q</option>
+                                <option value="R">R</option>
+                                <option value="S">S</option>
+                                <option value="T">T</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea id="cleanMessage" placeholder="Enter your cleaning request" required></textarea>
+                        </div>
+                        <div id="cleaningStatus" class="hidden">
+                            <div id="confirmation" class="status-box">
+                                <label><input type="checkbox" id="cleanComplete"> Cleaning Completed</label>
+                            </div>
+                            <div class="form-group hidden" id="otpSection">
+                                <label>Enter Cleaning OTP</label>
+                                <div class="otp-container" id="cleanOtpContainer"></div>
+                            </div>
+                            <button id="verifyCleanOtp" class="hidden">Verify OTP</button>
+                            <div id="cleanTimer"
+                                style="text-align: center; margin: 15px 0; color: var(--secondary-color);"></div>
+                            <div id="cleanMessage" class="message hidden"></div>
+                        </div>
+                        <button type="submit">Send Request</button>
+                        <button class="back-btn"
+                            onclick="document.getElementById('welcome').scrollIntoView({ behavior: 'smooth' })">Back</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Laundry Services Section -->
+            <section id="laundry" class="section">
+                <div class="card">
+                    <h2>Laundry Services</h2>
+                    <form id="laundryForm">
+                        <div id="laundryStatus" class="service-status"></div>
+                        <div id="laundryRequestForm" style="margin-top: 25px;">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" id="laundryName" placeholder="Enter Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Room Number</label>
+                                <input type="text" id="laundryRoom" placeholder="Enter Room Number" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Block</label>
+                                <select id="laundryBlock" required>
+                                    <option value="">Select Block</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                    <option value="D">D</option>
+                                    <option value="E">E</option>
+                                    <option value="F">F</option>
+                                    <option value="G">G</option>
+                                    <option value="H">H</option>
+                                    <option value="J">J</option>
+                                    <option value="K">K</option>
+                                    <option value="L">L</option>
+                                    <option value="M">M</option>
+                                    <option value="N">N</option>
+                                    <option value="P">P</option>
+                                    <option value="Q">Q</option>
+                                    <option value="R">R</option>
+                                    <option value="S">S</option>
+                                    <option value="T">T</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Number of Clothes (Max 25)</label>
+                                <input type="number" id="laundryClothes" min="1" max="25" required>
+                            </div>
+                            <div id="laundryMessage" class="message hidden"></div>
+                            <button type="submit">Request Pickup</button>
+                            <button class="back-btn"
+                                onclick="document.getElementById('welcome').scrollIntoView({ behavior: 'smooth' })">Back</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Electrical Services Section -->
+            <section id="electrical" class="section">
+                <div class="card">
+                    <h2>Electrical Services</h2>
+                    <form id="electricalForm">
+                        <div id="electricalStatus" class="service-status"></div>
+                        <div id="electricalRequestForm" style="margin-top: 25px;">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" id="electricalName" placeholder="Enter Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Room Number</label>
+                                <input type="text" id="electricalRoom" placeholder="Enter Room Number" required>
+                            </div>
+                            <button type="submit">Request Service</button>
+                            <button class="back-btn"
+                                onclick="document.getElementById('welcome').scrollIntoView({ behavior: 'smooth' })">Back</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Carpenter Services Section -->
+            <section id="carpenter" class="section">
+                <div class="card">
+                    <h2>Carpenter Services</h2>
+                    <form id="carpenterForm">
+                        <div id="carpenterStatus" class="service-status"></div>
+                        <div id="carpenterRequestForm" style="margin-top: 25px;">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" id="carpenterName" placeholder="Enter Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Room Number</label>
+                                <input type="text" id="carpenterRoom" placeholder="Enter Room Number" required>
+                            </div>
+                            <button type="submit">Request Service</button>
+                            <button class="back-btn"
+                                onclick="document.getElementById('welcome').scrollIntoView({ behavior: 'smooth' })">Back</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- WiFi Complaints Section -->
+            <section id="wifi" class="section">
+                <div class="card">
+                    <h2>WiFi Complaints</h2>
+                    <form id="wifiForm">
+                        <div id="wifiStatus" class="service-status"></div>
+                        <div id="wifiRequestForm" style="margin-top: 25px;">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" id="wifiName" placeholder="Enter Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Room Number</label>
+                                <input type="text" id="wifiRoom" placeholder="Enter Room Number" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Complaint</label>
+                                <textarea id="wifiComplaint" placeholder="Describe your WiFi issue" required></textarea>
+                            </div>
+                            <button type="submit">Submit Complaint</button>
+                            <button class="back-btn"
+                                onclick="document.getElementById('welcome').scrollIntoView({ behavior: 'smooth' })">Back</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Mess Complaints Section -->
+            <section id="mess" class="section">
+                <div class="card">
+                    <h2>Mess Complaints</h2>
+                    <form id="messForm">
+                        <div id="messStatus" class="service-status"></div>
+                        <div id="messRequestForm" style="margin-top: 25px;">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" id="messName" placeholder="Enter Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Room Number</label>
+                                <input type="text" id="messRoom" placeholder="Enter Room Number" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Complaint</label>
+                                <textarea id="messComplaint" placeholder="Describe your mess/food issue"
+                                    required></textarea>
+                            </div>
+                            <button type="submit">Submit Complaint</button>
+                            <button class="back-btn"
+                                onclick="document.getElementById('welcome').scrollIntoView({ behavior: 'smooth' })">Back</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+        
+    </div>
+
+    <footer>
+        <p>© 2025 HostelEase - Crafted with <i class="fas fa-heart" style="color: var(--accent-color);"></i> for
+            Students</p>
+    </footer>
+    
+
+    <script src="temp.js"></script>
+</body>
+
+
+</html>
