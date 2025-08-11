@@ -38,7 +38,20 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/hosteleas
 }).then(() => {
   console.log('✅ Connected to MongoDB');
 }).catch(err => {
-  console.error('❌ MongoDB connection error:', err);
+  console.error('❌ MongoDB connection error:', err);[vite] connecting... client:495:9
+[vite] connected. client:618:15
+Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools chunk-GKJBSOWT.js:21551:25
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. react-router-dom.js:4393:13
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath. react-router-dom.js:4393:13
+XHRPOST
+https://hostelease-zd0n.onrender.com/api/auth/login
+[HTTP/2 500  11533ms]
+
+XHRPOST
+https://hostelease-zd0n.onrender.com/api/auth/register
+[HTTP/2 500  10386ms]
+
+
 });
 
 // Routes
