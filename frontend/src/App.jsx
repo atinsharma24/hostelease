@@ -15,6 +15,7 @@ import MyRequests from './pages/MyRequests';
 // Components
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
+import Layout from './components/Layout'; // Import Layout
 
 function App() {
   const { loading, isAuthenticated } = useAuth();

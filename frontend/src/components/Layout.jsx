@@ -268,6 +268,21 @@ const Layout = ({ children }) => {
           Logout
         </MenuItem>
       </Menu>
+
+      <Box
+        component="footer"
+        sx={{
+          textAlign: 'center',
+          py: 2,
+          mt: 'auto',
+          backgroundColor: 'primary.main',
+          color: 'primary.contrastText',
+        }}
+      >
+        <Typography variant="body2">
+          Made with ❤️ by Atin Sharma
+        </Typography>
+      </Box>
     </Box>
   );
 };
