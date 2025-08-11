@@ -12,7 +12,8 @@ const app = express();
 // Middleware
 const allowedOrigins = [
   "https://hostelease.netlify.app", // Production frontend
-  "http://localhost:3000"          // Local development frontend
+  "http://localhost:3000",          // Local development frontend
+  "https://hostelease-zd0n.onrender.com" // Render frontend
 ];
 app.use(cors({
   origin: (origin, callback) => {
