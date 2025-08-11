@@ -78,7 +78,7 @@ export const AuthProvider = ({ children }) => {
     const checkAuth = async () => {
       if (state.token) {
         try {
-          const response = await axios.get('/api/auth/me');
+          const response = await axios.get('https://hostelease-zd0n.onrender.com/api/auth/me');
           dispatch({
             type: 'AUTH_SUCCESS',
             payload: {
@@ -103,7 +103,7 @@ export const AuthProvider = ({ children }) => {
     dispatch({ type: 'AUTH_START' });
     
     try {
-      const response = await axios.post('/api/auth/login', { email, password });
+      const response = await axios.post('https://hostelease-zd0n.onrender.com/api/auth/login', { email, password });
       const { data, token } = response.data;
       
       localStorage.setItem('token', token);
@@ -129,7 +129,7 @@ export const AuthProvider = ({ children }) => {
     dispatch({ type: 'AUTH_START' });
     
     try {
-      const response = await axios.post('/api/auth/register', userData);
+      const response = await axios.post('https://hostelease-zd0n.onrender.com/api/auth/register', userData);
       const { data, token } = response.data;
       
       localStorage.setItem('token', token);
@@ -159,7 +159,7 @@ export const AuthProvider = ({ children }) => {
   // Update user profile
   const updateProfile = async (profileData) => {
     try {
-      const response = await axios.put('/api/auth/me', profileData);
+      const response = await axios.put('https://hostelease-zd0n.onrender.com/api/auth/me', profileData);
       dispatch({
         type: 'UPDATE_USER',
         payload: response.data.data

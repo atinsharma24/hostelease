@@ -10,7 +10,19 @@ dotenv.config({ path: './config.env' });
 const app = express();
 
 // Middleware
-app.use(cors());
+const allowedOrigins = [
+  "https://hostelease.netlify.app", // Production frontend
+  "http://localhost:3000"          // Local development frontend
+];
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  }
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -21,9 +33,16 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/hosteleas
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));
-// app.use('/api/users', require('./routes/users'));
-// app.use('/api/services', require('./routes/services'));
-// app.use('/api/admin', require('./routes/admin'));
+app.use('/api/users', require('./routes/users'));
+app.use('/api/services', require('./routes/services'));
+app.use('/api/admin', require('./routes/admin'));
+
+// Serve static files (optional, if needed)
+const frontendPath = path.join(__dirname, '../frontend/dist');
+app.use(express.static(frontendPath));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(frontendPath, 'index.html'));
+});
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
