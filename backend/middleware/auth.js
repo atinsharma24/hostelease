@@ -21,32 +21,30 @@ exports.protect = async (req, res, next) => {
     try {
       // Verify token
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      
-      // Get user from token
-      const user = await User.findById(decoded.id).select('-password');
-      
-      if (!user) {
-        return res.status(401).json({
-          success: false,
-          message: 'Token is valid but user no longer exists.'
-        });
-      }
+      req.user = decoded;
+    } catch (err) {
+      return res.status(401).json({ message: "Invalid token" });
+    }
 
-      if (!user.isActive) {
-        return res.status(401).json({
-          success: false,
-          message: 'User account is deactivated.'
-        });
-      }
-
-      req.user = user;
-      next();
-    } catch (error) {
+    // Get user from token
+    const user = await User.findById(req.user.id).select('-password');
+    
+    if (!user) {
       return res.status(401).json({
         success: false,
-        message: 'Invalid token.'
+        message: 'Token is valid but user no longer exists.'
       });
     }
+
+    if (!user.isActive) {
+      return res.status(401).json({
+        success: false,
+        message: 'User account is deactivated.'
+      });
+    }
+
+    req.user = user;
+    next();
   } catch (error) {
     res.status(500).json({
       success: false,
