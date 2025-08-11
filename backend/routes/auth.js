@@ -17,11 +17,13 @@ const generateToken = (id) => {
 // @access  Public
 router.post('/register', async (req, res) => {
   try {
+    console.log('Register request body:', req.body);
     const { name, email, password, phone, hostelBlock, roomNumber, roomType, acType, hostelType } = req.body;
 
     // Check if user already exists
     const userExists = await User.findOne({ email });
     if (userExists) {
+      console.warn('User already exists with email:', email);
       return res.status(400).json({
         success: false,
         message: 'User already exists with this email'
@@ -43,7 +45,7 @@ router.post('/register', async (req, res) => {
 
     if (user) {
       const token = generateToken(user._id);
-      
+      console.log('User registered successfully:', user);
       res.status(201).json({
         success: true,
         message: 'User registered successfully',
@@ -64,16 +66,6 @@ router.post('/register', async (req, res) => {
     }
   } catch (error) {
     console.error('Registration error:', error);
-    
-    if (error.name === 'ValidationError') {
-      const messages = Object.values(error.errors).map(err => err.message);
-      return res.status(400).json({
-        success: false,
-        message: 'Validation error',
-        errors: messages
-      });
-    }
-    
     res.status(500).json({
       success: false,
       message: 'Server error during registration'
@@ -86,12 +78,13 @@ router.post('/register', async (req, res) => {
 // @access  Public
 router.post('/login', async (req, res) => {
   try {
+    console.log('Login request body:', req.body);
     const { email, password } = req.body;
 
     // Check if user exists and password is correct
     const user = await User.findOne({ email }).select('+password');
-    
     if (!user || !(await user.comparePassword(password))) {
+      console.warn('Invalid login attempt for email:', email);
       return res.status(401).json({
         success: false,
         message: 'Invalid email or password'
@@ -99,6 +92,7 @@ router.post('/login', async (req, res) => {
     }
 
     if (!user.isActive) {
+      console.warn('Deactivated account login attempt for email:', email);
       return res.status(401).json({
         success: false,
         message: 'Account is deactivated. Please contact admin.'
@@ -110,7 +104,7 @@ router.post('/login', async (req, res) => {
     await user.save();
 
     const token = generateToken(user._id);
-
+    console.log('User logged in successfully:', user);
     res.json({
       success: true,
       message: 'Login successful',
