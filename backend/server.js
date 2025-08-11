@@ -15,11 +15,21 @@ const allowedOrigins = [
   "http://localhost:3000",          // Local development frontend
   "https://hostelease-zd0n.onrender.com" // Render frontend
 ];
+
+// Debugging log for CORS
+app.use((req, res, next) => {
+  console.log(`Incoming request from origin: ${req.headers.origin}`);
+  next();
+});
+
+// Ensure CORS middleware is applied globally
 app.use(cors({
   origin: (origin, callback) => {
+    console.log(`CORS check for origin: ${origin}`);
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
+      console.error(`CORS error: Origin ${origin} not allowed`);
       callback(new Error("Not allowed by CORS"));
     }
   }
