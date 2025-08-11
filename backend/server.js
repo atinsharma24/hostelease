@@ -38,36 +38,10 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/hosteleas
 }).then(() => {
   console.log('✅ Connected to MongoDB');
 }).catch(err => {
-  console.error('❌ MongoDB connection error:', err);[vite] connecting... client:495:9
-[vite] connected. client:618:15
-Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools chunk-GKJBSOWT.js:21551:25
-⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. react-router-dom.js:4393:13
-⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath. react-router-dom.js:4393:13
-XHRPOST
-https://hostelease-zd0n.onrender.com/api/auth/login
-[HTTP/2 500  11533ms]
-
-XHRPOST
-https://hostelease-zd0n.onrender.com/api/auth/register
-[HTTP/2 500  10386ms]
-
-
+  console.error('❌ MongoDB connection error:', err);
 });
 
-// Routes
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/users', require('./routes/users'));
-app.use('/api/services', require('./routes/services'));
-app.use('/api/admin', require('./routes/admin'));
-
-// Serve static files (optional, if needed)
-const frontendPath = path.join(__dirname, '../frontend/dist');
-app.use(express.static(frontendPath));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(frontendPath, 'index.html'));
-});
-
-// Health check endpoint
+// Health check endpoint (before API routes)
 app.get('/api/health', (req, res) => {
   res.json({ 
     status: 'OK', 
@@ -75,6 +49,23 @@ app.get('/api/health', (req, res) => {
     timestamp: new Date().toISOString()
   });
 });
+
+// API Routes
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/users', require('./routes/users'));
+app.use('/api/services', require('./routes/services'));
+app.use('/api/admin', require('./routes/admin'));
+
+// Serve static files (only for production builds)
+if (process.env.NODE_ENV === 'production') {
+  const frontendPath = path.join(__dirname, '../frontend/dist');
+  app.use(express.static(frontendPath));
+  
+  // Catch-all route for SPA (only in production)
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(frontendPath, 'index.html'));
+  });
+}
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -85,9 +76,9 @@ app.use((err, req, res, next) => {
   });
 });
 
-// 404 handler
-app.use('*', (req, res) => {
-  res.status(404).json({ error: 'Route not found' });
+// 404 handler for API routes
+app.use('/api/*', (req, res) => {
+  res.status(404).json({ error: 'API route not found' });
 });
 
 const PORT = process.env.PORT || 5000;
