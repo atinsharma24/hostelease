@@ -91,7 +91,7 @@ HostelEase/
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/atinsharma24/HostelEase.git
+   git clone https://github.com/atinsharma24/HostelEase.git
 cd HostelEase/backend
 ```
 
@@ -130,7 +130,7 @@ cd ../frontend
 
 2. **Install dependencies**
 ```bash
-npm install
+   npm install
 ```
 
 3. **Start development server**
